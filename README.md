@@ -420,6 +420,25 @@ Limitation: Your /ingest and /query endpoints have no authentication.
 │   Sees: "✅ Ingested: 42 chunks"                                                     │
 │                                                                                      │
 └─────────────────────────────────────────────────────────────────────────────────────┘
+## OR In More Clean Way-
+
+## How The System Works (Document Ingestion Flow)
+
+### Step-by-Step Flow
+
+| Step | Component | Action |
+|------|-----------|--------|
+| 1 | **User (Browser)** | Clicks "Browse files", selects PDF, clicks "Upload" |
+| 2 | **Streamlit UI** | Sends POST request to `http://localhost:8000/ingest` |
+| 3 | **FastAPI Backend** | Saves file temporarily, calls `process_document()` |
+| 4 | **Ingestion** | Reads file (PyPDF2 for PDF, direct for TXT/MD) |
+| 5 | **Chunking** | Splits text into chunks (300 words, 50 overlap) |
+| 6 | **Embedding** | Batch generates 384-dim vectors via SentenceTransformer |
+| 7 | **Vector Storage** | Stores chunks + embeddings in Qdrant |
+| 8 | **Streamlit UI** | Displays success message with chunk count |
+| 9 | **User** | Sees "✅ Ingested: 7 chunks" |
+
+
 
 
 
