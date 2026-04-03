@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-dotenv
+sentence-transformers
+scikit-learn
+qdrant-client
+PyPDF2
+redis
+streamlit
+groq  
+python-multipart
